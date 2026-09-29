@@ -1,0 +1,17 @@
+services:
+  - type: worker
+    name: income-scout
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && hermes agent install || true"
+    startCommand: "python main.py"
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        fromSecret: telegram-bot-token
+      - key: TELEGRAM_ALERT_CHAT_ID
+        fromSecret: telegram-alert-chat-id
+      - key: FET_PRIVATE_KEY
+        fromSecret: fet-wallet-key
+      - key: ETH_PRIVATE_KEY
+        fromSecret: eth-wallet-key
+    autoDeploy: true
+    plan: free
