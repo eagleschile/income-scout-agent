@@ -1,6 +1,4 @@
-uagents>=0.20.0
-web3>=7.0.0
 requests>=2.32.0
-python-dateutil>=2.9.0
 schedule>=1.2.2
+python-dateutil>=2.9.0
 feedparser>=6.0.11

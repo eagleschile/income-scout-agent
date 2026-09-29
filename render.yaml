@@ -2,16 +2,21 @@ services:
   - type: worker
     name: income-scout
     runtime: python
-    buildCommand: "pip install -r requirements.txt && hermes agent install || true"
+    buildCommand: "pip install -r requirements.txt"
     startCommand: "python main.py"
     envVars:
+      - key: NTFY_TOPIC
+        value: "income-scout-agent"
       - key: TELEGRAM_BOT_TOKEN
         fromSecret: telegram-bot-token
+        required: false
       - key: TELEGRAM_ALERT_CHAT_ID
         fromSecret: telegram-alert-chat-id
-      - key: FET_PRIVATE_KEY
-        fromSecret: fet-wallet-key
+        required: false
+      - key: FET_SEED
+        value: "income scout agent wallet 2026 autonomous earnings"
       - key: ETH_PRIVATE_KEY
         fromSecret: eth-wallet-key
+        required: false
     autoDeploy: true
     plan: free
