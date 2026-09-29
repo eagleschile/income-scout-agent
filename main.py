@@ -24,7 +24,10 @@ def send_alert(title: str, text: str):
     """Send alert via NTFY (primary) and Telegram (optional)."""
     # NTFY (primary — always works)
     try:
-        requests.post(NTFY_URL, data=text, headers={"Title": title, "Priority": "normal"}, timeout=10)
+        # NTFY headers must be ASCII; emojis stay in the message body
+        ntfy_title = title.encode('ascii', 'replace').decode('ascii')
+        requests.post(NTFY_URL, data=text.encode('utf-8'),
+                       headers={"Title": ntfy_title, "Priority": "default"}, timeout=10)
     except Exception as e:
         print(f"[NTFY] Failed: {e}")
 
